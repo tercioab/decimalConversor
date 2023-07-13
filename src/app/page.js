@@ -140,17 +140,14 @@ export default function Convert() {
 					className='relative overflow-x-auto overflow-y-auto mt-10'
 					style={{ maxHeight: "300px" }}
 				>
-					<span class='bg-slate-100 text-slate-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded '>
-						{numberAndType.type}
-					</span>
 					<table className='w-full text-sm text-left text-slate-500 '>
 						<thead className='text-xs text-slate-700 uppercase bg-slate-50'>
 							<tr>
 								<th scope='col' className='px-6 py-3'>
 									Numero
 								</th>
-								<th scope='col' className='px-6 py-3'>
-									binario
+								<th scope='col' className='px-6 py-3 '>
+								{numberAndType.type}
 								</th>
 							</tr>
 						</thead>
@@ -168,7 +165,7 @@ export default function Convert() {
 				</div>
 			)}
       </form>
-      <p className="text-center text-slate-800 text-sm font-medium mt-10">feito por <a className="text-blue-600"href="https://www.linkedin.com/in/walthercio-almeida/" target="_blank">walthercio</a></p>
+      <p className="text-center text-slate-800 text-sm font-medium mt-10">feito por <a className="text-blue-600"href="https://www.linkedin.com/in/walthercio-almeida/" target="_blank">Walthercio Almeida</a></p>
       </div>
       
       </div>
