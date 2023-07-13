@@ -70,23 +70,26 @@ export default function Convert() {
 	function onSubmit(e) {
 		e.preventDefault();
 		const { number, type } = numberAndType;
+		let arrayValues = [];
 
-		const arrayValues = lista
-			? Array.from({ length: number + 1 }, (_, i) => ({
-					numero: i,
-					binario: binario(i, type),
-			  }))
-			: [{ numero: number, binario: binario(number, type) }];
-
-		setResult(arrayValues);
+		if (lista) {
+			for (let i = 0; i <= number; i++) {
+				arrayValues.push({ numero: i, binario: binario(i, type) });
+			}
+			setResult(arrayValues);
+		} else {
+			setResult([{ numero: number, binario: binario(number, type) }]);
+		}
 	}
 
-	return (
+  return (
+    <div class="flex items-center justify-center h-screen">
+      
+      <div class="max-w-sm p-6 bg-white border border-slate-200 rounded-lg shadow dark:bg-slate-800 dark:border-slate-700">
+      <p className="text-center text-2xl font-extrabold mt-10 text-transparent bg-clip-text bg-gradient-to-r to-sky-400 from-indigo-500">CONVERSÕES DE BASE DECIMAL</p>
+
 		<form onSubmit={onSubmit} className='flex flex-col items-center mt-8'>
-			<label
-				for='number'
-				class='block  text-sm font-medium text-gray-900 dark:text-white'
-			>
+			<label for='number' class='block  text-sm font-medium text-slate-900 '>
 				Insira um valor numérico:
 			</label>
 			<input
@@ -95,30 +98,30 @@ export default function Convert() {
 				value={numberAndType.number}
 				name='number'
 				onChange={onHandleChange}
-				className='w-64 px-4 py-2 rounded border mb-4 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500  '
+				className='w-64 px-4 py-2 rounded border mb-4 bg-slate-50 border border-slate-300 text-slate-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500  '
 				placeholder='Insira um valor numérico'
 			/>
 
-			<label for='type' class='block  text-sm font-medium text-gray-900 dark:text-white'>
+			<label for='type' class='block  text-sm font-medium text-slate-900 '>
 				Selecione o tipo de conversão:
 			</label>
 			<select
 				id='type'
 				name='type'
 				onChange={onHandleChange}
-				className='w-64 px-4 py-2 rounded border mb-4 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 '
+				className='w-64 px-4 py-2 rounded border mb-4 bg-slate-50 border border-slate-300 text-slate-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 '
 			>
 				<option value='Binário'>Binário</option>
 				<option value='Hexadecimal'>Hexadecimal</option>
 				<option value='Octal'>Octal</option>
 			</select>
 
-			<label for='lista' class='block  text-sm font-medium text-gray-900 dark:text-white'>
+			<label for='lista' class='block  text-sm font-medium text-slate-900 '>
 				Tipo de exibição:
 			</label>
 			<select
 				id='lista'
-				className='w-64 px-4 py-2 rounded border mb-4 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 '
+				className='w-64 px-4 py-2 rounded border mb-4 bg-slate-50 border border-slate-300 text-slate-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 '
 				onChange={e => setLista(e.target.value === "true")}
 			>
 				<option value={false}>Unitário</option>
@@ -127,38 +130,47 @@ export default function Convert() {
 
 			<button
 				type='submit'
-				className='text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 '
+				class='text-white bg-[#050708] hover:bg-[#050708]/90 focus:ring-4 focus:outline-none focus:ring-[#050708]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center '
 			>
 				Enviar
 			</button>
+
 			{result && (
-			<div className='relative overflow-x-auto overflow-y-auto mt-10' style={{ maxHeight: '300px' }}>
-      <h1>{numberAndType.type}</h1>
-      <table className='w-full text-sm text-left text-gray-500 dark:text-gray-400'>
-        <thead className='text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400'>
-          <tr>
-            <th scope='col' className='px-6 py-3'>
-              Numero
-            </th>
-            <th scope='col' className='px-6 py-3'>
-              binario
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {result.map(({ numero, binario }) => (
-            <tr key={numero} className='bg-white border-b dark:bg-gray-800 dark:border-gray-700'>
-              <td className='px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white'>
-                {numero}
-              </td>
-              <td className='px-6 py-4'>{binario}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-    
+				<div
+					className='relative overflow-x-auto overflow-y-auto mt-10'
+					style={{ maxHeight: "300px" }}
+				>
+					<span class='bg-slate-100 text-slate-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded '>
+						{numberAndType.type}
+					</span>
+					<table className='w-full text-sm text-left text-slate-500 '>
+						<thead className='text-xs text-slate-700 uppercase bg-slate-50'>
+							<tr>
+								<th scope='col' className='px-6 py-3'>
+									Numero
+								</th>
+								<th scope='col' className='px-6 py-3'>
+									binario
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							{result.map(({ numero, binario }) => (
+								<tr key={numero} className='bg-white border-b '>
+									<td className='px-6 py-4 font-medium text-slate-900 whitespace-nowrap '>
+										{numero}
+									</td>
+									<td className='px-6 py-4'>{binario}</td>
+								</tr>
+							))}
+						</tbody>
+					</table>
+				</div>
 			)}
-		</form>
+      </form>
+      <p className="text-center text-slate-800 text-sm font-medium mt-10">feito por <a className="text-blue-600"href="https://www.linkedin.com/in/walthercio-almeida/" target="_blank">walthercio</a></p>
+      </div>
+      
+      </div>
 	);
 }
