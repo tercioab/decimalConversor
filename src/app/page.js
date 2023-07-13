@@ -15,14 +15,14 @@ export default function Convert() {
 	}
 
 	function binario(number, type) {
-		let typeInNumber = 2
+		let typeInNumber = 2;
 		if (!number) {
 			return 0;
 		}
 
 		let num = number;
-    let ar = [];
-    switch (type) {
+		let ar = [];
+		switch (type) {
 			case "Octal":
 				typeInNumber = 8;
 				break;
@@ -32,8 +32,8 @@ export default function Convert() {
 			case "Binário":
 				typeInNumber = 2;
 				break;
-    }
-    
+		}
+
 		while (num > 0) {
 			if (typeInNumber === 16) {
 				switch (num % typeInNumber) {
@@ -70,21 +70,23 @@ export default function Convert() {
 	function onSubmit(e) {
 		e.preventDefault();
 		const { number, type } = numberAndType;
-		let arrayValues = [];
-	
-		if (lista) {
-			for (let i = 0; i <= number; i++) {
-				arrayValues.push({numero: i, binario: binario(i, type)});
-			}
-			setResult(arrayValues);
-		} else {
-			setResult([{numero: number , binario: binario(number, type)}]);
-		}
+
+		const arrayValues = lista
+			? Array.from({ length: number + 1 }, (_, i) => ({
+					numero: i,
+					binario: binario(i, type),
+			  }))
+			: [{ numero: number, binario: binario(number, type) }];
+
+		setResult(arrayValues);
 	}
 
 	return (
 		<form onSubmit={onSubmit} className='flex flex-col items-center mt-8'>
-			<label for="number" class="block  text-sm font-medium text-gray-900 dark:text-white">
+			<label
+				for='number'
+				class='block  text-sm font-medium text-gray-900 dark:text-white'
+			>
 				Insira um valor numérico:
 			</label>
 			<input
@@ -97,7 +99,7 @@ export default function Convert() {
 				placeholder='Insira um valor numérico'
 			/>
 
-<label for="type" class="block  text-sm font-medium text-gray-900 dark:text-white">
+			<label for='type' class='block  text-sm font-medium text-gray-900 dark:text-white'>
 				Selecione o tipo de conversão:
 			</label>
 			<select
@@ -111,7 +113,9 @@ export default function Convert() {
 				<option value='Octal'>Octal</option>
 			</select>
 
-			<label for="lista" class="block  text-sm font-medium text-gray-900 dark:text-white">Tipo de exibição:</label>
+			<label for='lista' class='block  text-sm font-medium text-gray-900 dark:text-white'>
+				Tipo de exibição:
+			</label>
 			<select
 				id='lista'
 				className='w-64 px-4 py-2 rounded border mb-4 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 '
@@ -127,36 +131,34 @@ export default function Convert() {
 			>
 				Enviar
 			</button>
-      {result && (
-        <div className="relative overflow-x-auto mt-10">
-          <h1>{numberAndType.type }</h1>
-      <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-        <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+			{result && (
+			<div className='relative overflow-x-auto overflow-y-auto mt-10' style={{ maxHeight: '300px' }}>
+      <h1>{numberAndType.type}</h1>
+      <table className='w-full text-sm text-left text-gray-500 dark:text-gray-400'>
+        <thead className='text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400'>
           <tr>
-            <th scope="col" className="px-6 py-3">
+            <th scope='col' className='px-6 py-3'>
               Numero
             </th>
-            <th scope="col" className="px-6 py-3">
+            <th scope='col' className='px-6 py-3'>
               binario
             </th>
           </tr>
         </thead>
         <tbody>
           {result.map(({ numero, binario }) => (
-            <tr key={numero} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-              <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+            <tr key={numero} className='bg-white border-b dark:bg-gray-800 dark:border-gray-700'>
+              <td className='px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white'>
                 {numero}
               </td>
-              <td className="px-6 py-4">
-                {binario}
-              </td>
+              <td className='px-6 py-4'>{binario}</td>
             </tr>
           ))}
         </tbody>
       </table>
     </div>
-  )}
-
+    
+			)}
 		</form>
 	);
 }
