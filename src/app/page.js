@@ -14,6 +14,10 @@ export default function Page() {
 		}));
 	}
 
+	function casesOfHexadecimal(num, typeInNumber) {
+		
+	}
+
 	function binario(number, type) {
 		let typeInNumber = 2;
 		if (!number) {
@@ -135,7 +139,7 @@ export default function Page() {
 				Enviar
 			</button>
 
-			{result && (
+			{result[0] && (
 				<div
 					className='relative overflow-x-auto overflow-y-auto mt-10'
 					style={{ maxHeight: "300px" }}
