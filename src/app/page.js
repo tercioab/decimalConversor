@@ -6,6 +6,8 @@ export default function Page() {
 	const [numberAndType, setNumberAndType] = useState({ number: 0, type: "Binário" });
 	const [lista, setLista] = useState(false);
 	const [result, setResult] = useState([]);
+
+
 	function onHandleChange({ target }) {
 		const { name, value } = target;
 		setNumberAndType(prevState => ({
@@ -25,6 +27,26 @@ export default function Page() {
 		}
 	}
 
+
+	function hexadecimalCases(num, typeInNumber) {
+		switch (num % typeInNumber) {
+			case 10:
+				return "A";
+			case 11:
+				return "B";
+			case 12:
+				return "C";
+			case 13:
+				return "D";
+			case 14:
+				return "E";
+			case 15:
+				return "F";
+			default:
+				return num % typeInNumber;
+		}
+	}
+
 	function binario(number, type) {
 		if (!number) {
 			return 0;
@@ -36,28 +58,8 @@ export default function Page() {
 
 		while (num > 0) {
 			if (typeInNumber === 16) {
-				switch (num % typeInNumber) {
-					case 10:
-						ar.unshift("A");
-						break;
-					case 11:
-						ar.unshift("B");
-						break;
-					case 12:
-						ar.unshift("C");
-						break;
-					case 13:
-						ar.unshift("D");
-						break;
-					case 14:
-						ar.unshift("E");
-						break;
-					case 15:
-						ar.unshift("F");
-						break;
-					default:
-						ar.unshift(num % typeInNumber);
-				}
+			ar.push(hexadecimalCases(num, typeInNumber))
+				
 			} else {
 				ar.unshift(num % typeInNumber);
 			}
